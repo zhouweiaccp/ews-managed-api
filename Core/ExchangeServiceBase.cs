@@ -200,7 +200,7 @@ namespace Microsoft.Exchange.WebServices.Data
 
         internal virtual void SetContentType(IEwsHttpWebRequest request)
         {
-            request.ContentType = "text/xml; charset=utf-8";
+            request.ContentType = new MediaTypeHeaderValue("text/xml") { CharSet = "utf-8" };
             request.Accept = "text/xml";
         }
 
@@ -218,7 +218,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </remarks>
         internal void InternalProcessHttpErrorResponse(
                             IEwsHttpWebResponse httpWebResponse,
-                            WebException webException,
+                            HttpWebException webException,
                             TraceFlags responseHeadersTraceFlag,
                             TraceFlags responseTraceFlag)
         {
@@ -255,7 +255,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="httpWebResponse">The HTTP web response.</param>
         /// <param name="webException">The web exception.</param>
-        internal abstract void ProcessHttpErrorResponse(IEwsHttpWebResponse httpWebResponse, WebException webException);
+        internal abstract void ProcessHttpErrorResponse(IEwsHttpWebResponse httpWebResponse, HttpWebException webException);
 
         /// <summary>
         /// Determines whether tracing is enabled for specified trace flag(s).

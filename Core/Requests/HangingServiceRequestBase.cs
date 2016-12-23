@@ -251,7 +251,7 @@ namespace Microsoft.Exchange.WebServices.Data
                     return;
                 }
                 */
-                catch (WebException ex)
+                catch (HttpWebException ex)
                 {
                     // Stream is closed, so disconnect.
                     this.Disconnect(HangingRequestDisconnectReason.Exception, ex);

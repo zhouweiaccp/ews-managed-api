@@ -199,10 +199,10 @@ namespace Microsoft.Exchange.WebServices.Data
             {
                 // 404 is a valid return code in the case of GetUserPhoto when the photo is
                 // not found, so it is necessary to catch this exception here.
-                WebException webException = ex.InnerException as WebException;
+                HttpWebException webException = ex.InnerException as HttpWebException;
                 if (webException != null)
                 {
-                    HttpWebResponse errorResponse = webException.Response as HttpWebResponse;
+                    var errorResponse = webException.Response;
                     if (errorResponse != null && errorResponse.StatusCode == HttpStatusCode.NotFound)
                     {
                         return GetUserPhotoRequest.GetNotFoundResponse();

@@ -117,7 +117,7 @@ namespace Microsoft.Exchange.WebServices.Data
                     }
                 }
             }
-            catch (WebException e)
+            catch (HttpWebException e)
             {
                 if (e.Response != null)
                 {

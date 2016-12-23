@@ -776,7 +776,7 @@ namespace Microsoft.Exchange.WebServices.Data
 
                 return request;
             }
-            catch (WebException ex)
+            catch (HttpWebException ex)
             {
                 if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response != null)
                 {
@@ -804,7 +804,7 @@ namespace Microsoft.Exchange.WebServices.Data
             {
                 return await request.GetResponse().ConfigureAwait(false);
             }
-            catch (WebException ex)
+            catch (HttpWebException ex)
             {
                 if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response != null)
                 {
@@ -825,7 +825,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Processes the web exception.
         /// </summary>
         /// <param name="webException">The web exception.</param>
-        private void ProcessWebException(WebException webException)
+        private void ProcessWebException(HttpWebException webException)
         {
             if (webException.Response != null)
             {

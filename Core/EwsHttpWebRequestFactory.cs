@@ -50,7 +50,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="exception">The exception.</param>
         /// <returns>Instance of IEwsHttpWebResponse.</returns>
-        IEwsHttpWebResponse IEwsHttpWebRequestFactory.CreateExceptionResponse(WebException exception)
+        IEwsHttpWebResponse IEwsHttpWebRequestFactory.CreateExceptionResponse(HttpWebException exception)
         {
             EwsUtilities.ValidateParam(exception, "exception");
 
@@ -59,7 +59,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 throw new InvalidOperationException("The exception does not contain response.");
             }
 
-            return new EwsHttpWebResponse(exception.Response as HttpWebResponse);
+            return new EwsHttpWebResponse(exception.Response);
         }
         #endregion
     }

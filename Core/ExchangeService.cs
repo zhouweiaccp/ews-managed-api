@@ -37,6 +37,7 @@ namespace Microsoft.Exchange.WebServices.Data
     using Microsoft.Exchange.WebServices.Data.Enumerations;
     using Microsoft.Exchange.WebServices.Data.Groups;
     using System.Threading.Tasks;
+    using System.Net.Http.Headers;
 
     /// <summary>
     /// Represents a binding to the Exchange Web Services.
@@ -5039,7 +5040,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="request">The request.</param>
         internal override void SetContentType(IEwsHttpWebRequest request)
         {
-            request.ContentType = "text/xml; charset=utf-8";
+            request.ContentType = new MediaTypeHeaderValue("text/xml") { CharSet = "utf-8" };
             request.Accept = "text/xml";
         }
 
@@ -5048,7 +5049,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="httpWebResponse">The HTTP web response.</param>
         /// <param name="webException">The web exception.</param>
-        internal override void ProcessHttpErrorResponse(IEwsHttpWebResponse httpWebResponse, WebException webException)
+        internal override void ProcessHttpErrorResponse(IEwsHttpWebResponse httpWebResponse, HttpWebException webException)
         {
             this.InternalProcessHttpErrorResponse(
                 httpWebResponse,

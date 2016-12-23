@@ -33,7 +33,6 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
     using Microsoft.Exchange.WebServices.Data;
     using System.Threading.Tasks;
     using System.Net.Http;
-    using Data.Core;
     using System.Net.Http.Headers;
 
     /// <summary>
@@ -117,7 +116,7 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
                     }
 
                 using (var client = this.Service.PrepareHttpClient())
-                using (IEwsHttpWebResponse webResponse = new EwsHttpResponse(client.SendAsync(request).Result))
+                using (IEwsHttpWebResponse webResponse = new EwsHttpWebResponse(client.SendAsync(request).Result))
                 {
                     if (AutodiscoverRequest.IsRedirectionResponse(webResponse))
                     {
@@ -173,7 +172,7 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
                     }
                 }
             }
-            catch (WebException ex)
+            catch (HttpWebException ex)
             {
                 if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response != null)
                 {
@@ -224,7 +223,7 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// Processes the web exception.
         /// </summary>
         /// <param name="webException">The web exception.</param>
-        private void ProcessWebException(WebException webException)
+        private void ProcessWebException(HttpWebException webException)
         {
             if (webException.Response != null)
             {

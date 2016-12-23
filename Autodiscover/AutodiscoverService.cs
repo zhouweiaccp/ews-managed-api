@@ -35,7 +35,6 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
     using Microsoft.Exchange.WebServices.Data;
     using System.Threading.Tasks;
     using System.Net.Http;
-    using Data.Core;
     using System.Net.Http.Headers;
 
     /// <summary>
@@ -224,7 +223,7 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
             }
 
             using (var client = this.PrepareHttpClient())
-            using (IEwsHttpWebResponse webResponse = new EwsHttpResponse(client.SendAsync(request).Result))
+            using (IEwsHttpWebResponse webResponse = new EwsHttpWebResponse(client.SendAsync(request).Result))
             {
                 Uri redirectUrl;
                 if (this.TryGetRedirectionResponse(webResponse, out redirectUrl))
@@ -306,7 +305,7 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
                 })
                 {
                     var httpResponse = client.GetAsync(url).Result;
-                    response = new EwsHttpResponse(httpResponse);
+                    response = new EwsHttpWebResponse(httpResponse);
                 }
             }
             catch (Exception ex)
@@ -536,7 +535,7 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
                             break;
                     }
                 }
-                catch (WebException ex)
+                catch (HttpWebException ex)
                 {
                     if (ex.Response != null)
                     {
@@ -731,7 +730,7 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
                                 return false;
                         }
                     }
-                    catch (WebException ex)
+                    catch (HttpWebException ex)
                     {
                         if (ex.Response != null)
                         {
@@ -1370,7 +1369,7 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
                     })
                     {
                         var httpResponse = client.GetAsync(autoDiscoverUrl).Result;
-                        response = new EwsHttpResponse(httpResponse);
+                        response = new EwsHttpWebResponse(httpResponse);
                     }
                 }
                 catch (Exception ex)
@@ -1576,7 +1575,7 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// </summary>
         /// <param name="httpWebResponse">The HTTP web response.</param>
         /// <param name="webException">The web exception.</param>
-        internal override void ProcessHttpErrorResponse(IEwsHttpWebResponse httpWebResponse, WebException webException)
+        internal override void ProcessHttpErrorResponse(IEwsHttpWebResponse httpWebResponse, HttpWebException webException)
         {
             this.InternalProcessHttpErrorResponse(
                 httpWebResponse,

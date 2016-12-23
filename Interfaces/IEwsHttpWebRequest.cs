@@ -28,6 +28,7 @@ namespace Microsoft.Exchange.WebServices.Data
     using System;
     using System.IO;
     using System.Net;
+    using System.Net.Http.Headers;
     using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
 
@@ -87,7 +88,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets or sets the value of the Content-type HTTP header.
         /// </summary>
         /// <returns>The value of the Content-type HTTP header. The default value is null.</returns>
-        string ContentType
+        MediaTypeHeaderValue ContentType
         { 
             get; set; 
         }
