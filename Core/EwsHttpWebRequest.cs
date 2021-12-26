@@ -56,7 +56,7 @@ namespace Microsoft.Exchange.WebServices.Data
             Method = "GET";
             RequestUri = uri;
             _httpClientHandler = new HttpClientHandler()
-            {
+            { ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true,
                 AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
             };
             _httpClient = new HttpClient(_httpClientHandler);
